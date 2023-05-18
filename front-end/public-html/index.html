@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Urgent News</title>
+    <style>
+        #news {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to Urgent News</h1>
+    <button onclick="getUrgentNews()">Get Latest News</button>
+    <div id="news"></div>
+    
+    <script>
+        function getUrgentNews() {
+            fetch('http://localhost:8080/getUrgentNews')
+                .then(response => response.json())
+                .then(data => {
+                    let newsDiv = document.getElementById('news');
+                    newsDiv.innerHTML = '';
+                    data.forEach(article => {
+                        newsDiv.innerHTML += `
+                            <h2>${article.title}</h2>
+                            <p>${article.content}</p>
+                            <hr>
+                        `;
+                    });
+                });
+        }
+    </script>
+</body>
+</html>
